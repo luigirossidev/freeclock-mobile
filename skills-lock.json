@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "skills": {
+    "capacitor-angular": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "e12f29257ebfb8cff20972ce3edcf67a848222b5d8a5e6bffcef075d8d7a2a95"
+    },
+    "capacitor-app-creation": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "7dd7ad406cd57257745057466a21e92e9de0237878a7a9b370ff412a4ca06b57"
+    },
+    "capacitor-app-development": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "ff7e606caf834b8b08c9c3fc208bac5e5e6dbc9d2d5006cc79297676d2cdde47"
+    },
+    "capacitor-app-upgrades": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "da9f4e42be69e7e31c12c151516fb237bce38228ba1664c6db393a1320b2c51e"
+    },
+    "capacitor-expert": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "11e8b9979549e67650b84a5c27cc408d37a163463428a2a3204a5a452db52b2a"
+    },
+    "capacitor-in-app-purchases": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "91ebe2a8f487848279506f77340f26768bfeedb371d4779900a18284ef8440de"
+    },
+    "capacitor-plugin-development": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "683a5ed80aab0f125a86ca9241064ffa69789a0697aad1c7bedcb76d35a0cab9"
+    },
+    "capacitor-plugin-spm-support": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "6fdd7d1facb0e358359e23f9104a550d7e5c6eb5f231e08ae5fed2200cb6404a"
+    },
+    "capacitor-plugin-upgrades": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "4967087ebfdb4475162f4299713f7127ba1841b4b38711e0f61148434161f9a0"
+    },
+    "capacitor-plugins": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "5536af17c8ceb05cfc312c46791ba74221a2209263455666d7ae20d5294dc9be"
+    },
+    "capacitor-push-notifications": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "42c79115be38e67f2b31c5e189a2b2443c89cdf5d7dd8e64a0e3da83dacafad6"
+    },
+    "capacitor-react": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "a21d12e7dfd8196bf3ff59ff320a44af253d545025556caeb13866dcaead7303"
+    },
+    "capacitor-vue": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "e3e944741a91d6f3afbf6f355a3f005efe1694ed7a4d8c0b19ba91f90be382cf"
+    },
+    "capawesome-cli": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "a900fe31f20a62fb5dc31d1309962c4cc4290a0527604e6439b7029572cad58a"
+    },
+    "capawesome-cloud": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "e71fcd9780ec7f52fa60777288cf18b73a648d77e1698fcf629e55c2686924ca"
+    },
+    "ionic-angular": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "44351bf5dfe0a89334749dafe9f94de416a583f8fb6d5480b83a42dc4755e016"
+    },
+    "ionic-app-creation": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "0b86c476a6dc6493b0a9a23d7353935cb2b81afe8c3fd17dd79a57e309f8f8aa"
+    },
+    "ionic-app-development": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "ba15c900a69044ec6089a23a79a8e8fda3d5b7efe294914ed3f21d0a36d8a484"
+    },
+    "ionic-app-upgrades": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "d405f6bedaa42d00be3aba7d38ba33e210eb83a868c53d68707e6889ccbbdf74"
+    },
+    "ionic-appflow-migration": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "fa1f80277024e135c1faa98d29de776b28845d4ed33d47e1df521b62f52697d8"
+    },
+    "ionic-enterprise-sdk-migration": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "7adff8a367123d89683d53d5311bc0090601ede77bb848476b6c00a64632b085"
+    },
+    "ionic-expert": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "0be338c369ec2c5cc3a180c9edd06d5ebb3d401be34434556ea38278f4d73c76"
+    },
+    "ionic-react": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "f5a63c449f5ed9ffcd2fe46227096c27113c7685623635a2a3517f8f8099b92d"
+    },
+    "ionic-vue": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "99e57e6a2662e229681808b50975b39beceb561d4a5758e0d8cb46db503550a6"
+    },
+    "skill-creator": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "computedHash": "0c00a83adf79c43b95a6adbeebe398d19c208f998f9a752ee0d3a0a10eda43be"
+    }
+  }
+}

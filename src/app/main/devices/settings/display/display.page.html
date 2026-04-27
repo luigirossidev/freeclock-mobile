@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>{{ 'DISPLAY.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if (draft) {
+    <ion-list>
+      <ion-item>
+        <ion-range [label]="'DISPLAY.BRIGHTNESS' | translate" labelPlacement="start" [min]="0" [max]="15" [step]="1" [pin]="true" [(ngModel)]="draft.bright"></ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-input [label]="'DISPLAY.SPEED' | translate" labelPlacement="stacked" type="number" min="10" max="200" [(ngModel)]="draft.speed"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [label]="'DISPLAY.SCROLL_INTERVAL' | translate" labelPlacement="stacked" type="number" min="1" max="60" [(ngModel)]="draft.scroll"></ion-input>
+      </ion-item>
+<ion-item-divider><ion-label>{{ 'DISPLAY.SCHEDULE' | translate }}</ion-label></ion-item-divider>
+      <ion-item>
+        <ion-input [label]="'DISPLAY.TURN_ON' | translate" labelPlacement="stacked" type="time" [(ngModel)]="draft.on"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [label]="'DISPLAY.TURN_OFF' | translate" labelPlacement="stacked" type="time" [(ngModel)]="draft.off"></ion-input>
+      </ion-item>
+    </ion-list>
+  }
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button expand="block" [disabled]="saving || !draft" (click)="send()">
+    @if (saving) { <ion-spinner name="crescent"></ion-spinner> }
+    @else { {{ 'DEVICES.SEND_SETTINGS' | translate }} }
+  </ion-button>
+</ion-footer>

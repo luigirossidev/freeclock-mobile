@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">{{ 'COMMON.CANCEL' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'TIME_WEATHER.SEARCH_CITY' | translate }}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      [placeholder]="'TIME_WEATHER.SEARCH_CITY_HINT' | translate"
+      (ionInput)="onSearch($event)"
+      debounce="500"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  @if (searching) {
+    <div class="spinner-container">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  } @else if (results.length > 0) {
+    <ion-list>
+      @for (city of results; track city.lat + '-' + city.lon) {
+        <ion-item button (click)="select(city)" [disabled]="resolving">
+          <ion-label>
+            <h2>{{ city.localName }}</h2>
+            <p>{{ city.state ? city.state + ', ' : '' }}{{ city.country }}</p>
+          </ion-label>
+        </ion-item>
+      }
+    </ion-list>
+  } @else if (searched) {
+    <div class="empty-container">
+      <ion-note>{{ 'TIME_WEATHER.NO_CITIES_FOUND' | translate }}</ion-note>
+    </div>
+  }
+
+  @if (resolving) {
+    <div class="overlay">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  }
+</ion-content>

@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>{{ 'UPDATE.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (isLoading) {
+    <div class="ion-text-center ion-padding-top">
+      <ion-spinner></ion-spinner>
+      <p>{{ 'UPDATE.CHECKING' | translate }}</p>
+    </div>
+  } @else if (checkFailed) {
+    <p class="ion-text-center ion-padding-top">{{ 'UPDATE.CHECK_FAILED' | translate }}</p>
+  } @else if (hasUpdate) {
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'UPDATE.AVAILABLE_TITLE' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div [innerHTML]="safeNotes"></div>
+        <ion-button expand="block" class="ion-margin-top" (click)="startUpdate()">
+          {{ 'UPDATE.START' | translate }}
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  } @else {
+    <p class="ion-text-center ion-padding-top">{{ 'UPDATE.UP_TO_DATE' | translate }}</p>
+  }
+</ion-content>

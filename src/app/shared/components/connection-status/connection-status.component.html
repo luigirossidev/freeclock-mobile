@@ -1,0 +1,12 @@
+<div class="status-bar" [class]="state">
+  <span class="dot"></span>
+  <span class="label">
+    @switch (state) {
+      @case ('connected') { {{ 'COMMON.BLE_CONNECTED' | translate }} }
+      @case ('connecting') { {{ 'COMMON.BLE_RECONNECTING' | translate }} }
+      @case ('reconnecting') { {{ 'COMMON.BLE_RECONNECTING' | translate }} }
+      @case ('scanning') { {{ 'COMMON.BLE_RECONNECTING' | translate }} }
+      @default { {{ 'COMMON.BLE_DISCONNECTED' | translate }} }
+    }
+  </span>
+</div>

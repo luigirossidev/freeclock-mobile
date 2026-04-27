@@ -1,0 +1,17 @@
+[
+  {
+    "title": "FreeClock 2.0 Coming Soon",
+    "summary": "New features, multi-device support and a refreshed interface. Stay tuned for the latest updates.",
+    "date": "2025-01-15"
+  },
+  {
+    "title": "New ESP32 Firmware",
+    "summary": "Firmware 1.4 brings improvements to WiFi connectivity and BLE stability. Update your device from the Device Info section.",
+    "date": "2025-01-10"
+  },
+  {
+    "title": "Weather API Integration",
+    "summary": "You can now configure the OpenWeatherMap API key directly from the app to display weather forecasts on the display.",
+    "date": "2024-12-20"
+  }
+]

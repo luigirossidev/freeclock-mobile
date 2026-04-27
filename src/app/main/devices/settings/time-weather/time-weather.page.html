@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>{{ 'TIME_WEATHER.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if (draft) {
+    <ion-list>
+      <!-- Time settings -->
+      <ion-item button (click)="openTimezoneSelector()">
+        <ion-label>
+          <h2>{{ 'TIME_WEATHER.TIMEZONE' | translate }}</h2>
+          <p>{{ currentTzLabel || draft.tz }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-toggle [(ngModel)]="draft.h24" labelPlacement="start">{{ 'TIME_WEATHER.24H_FORMAT' | translate }}</ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-toggle [(ngModel)]="draft.pm" labelPlacement="start">{{ 'TIME_WEATHER.SHOW_PM' | translate }}</ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-toggle [(ngModel)]="draft.flash" labelPlacement="start">{{ 'TIME_WEATHER.FLASH_SECONDS' | translate }}</ion-toggle>
+      </ion-item>
+
+      <!-- Weather section -->
+      <ion-item-divider><ion-label>{{ 'TIME_WEATHER.WEATHER_SECTION' | translate }}</ion-label></ion-item-divider>
+
+      <!-- Step 1: API Key info + input -->
+      @if (!draft.wKey.trim()) {
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ 'TIME_WEATHER.API_KEY_SETUP_TITLE' | translate }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p [innerHTML]="'TIME_WEATHER.API_KEY_SETUP_INFO' | translate"></p>
+            <ion-button fill="outline" size="small" class="ion-margin-top" (click)="openGetApiKey()">
+              <ion-icon name="open-outline" slot="start"></ion-icon>
+              {{ 'TIME_WEATHER.GET_API_KEY' | translate }}
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      }
+
+      <ion-item>
+        <ion-input
+          [label]="'TIME_WEATHER.WEATHER_API_KEY' | translate"
+          labelPlacement="stacked"
+          [(ngModel)]="draft.wKey"
+          (ionInput)="onApiKeyChange()"
+          [placeholder]="'TIME_WEATHER.API_KEY_PLACEHOLDER' | translate"
+        ></ion-input>
+      </ion-item>
+
+      <!-- Step 2: Test API key -->
+      @if (draft.wKey.trim()) {
+        <ion-item>
+          <ion-button
+            fill="outline"
+            size="small"
+            [disabled]="apiKeyTesting"
+            (click)="testApiKey()"
+          >
+            @if (apiKeyTesting) {
+              <ion-spinner name="crescent" slot="start"></ion-spinner>
+            }
+            {{ 'TIME_WEATHER.TEST_API_KEY' | translate }}
+          </ion-button>
+          @if (apiKeyValid === true) {
+            <ion-icon name="checkmark-circle" color="success" slot="end"></ion-icon>
+            <ion-note slot="end" color="success">{{ 'TIME_WEATHER.API_KEY_VALID' | translate }}</ion-note>
+          } @else if (apiKeyValid === false) {
+            <ion-icon name="alert-circle" color="danger" slot="end"></ion-icon>
+            <ion-note slot="end" color="danger">{{ 'TIME_WEATHER.API_KEY_INVALID' | translate }}</ion-note>
+          }
+        </ion-item>
+      }
+
+      <!-- Step 3: City selection (only if key is valid) -->
+      @if (apiKeyValid === true) {
+        <ion-item button (click)="openCitySelector()">
+          <ion-icon name="search" slot="start"></ion-icon>
+          <ion-label>
+            <h2>{{ 'TIME_WEATHER.SELECT_CITY' | translate }}</h2>
+            @if (cityName) {
+              <p>{{ cityName }} (ID: {{ draft.city }})</p>
+            } @else if (draft.city) {
+              <p>ID: {{ draft.city }}</p>
+            } @else {
+              <p>{{ 'TIME_WEATHER.NO_CITY_SELECTED' | translate }}</p>
+            }
+          </ion-label>
+        </ion-item>
+
+        <!-- Step 4: Weather display options (only if city selected) -->
+        @if (draft.city) {
+          <ion-item>
+            <ion-toggle [(ngModel)]="draft.metric" labelPlacement="start">{{ 'TIME_WEATHER.METRIC' | translate }}</ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-toggle [(ngModel)]="draft.sCity" labelPlacement="start">{{ 'TIME_WEATHER.SHOW_CITY' | translate }}</ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-toggle [(ngModel)]="draft.sCond" labelPlacement="start">{{ 'TIME_WEATHER.SHOW_CONDITION' | translate }}</ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-toggle [(ngModel)]="draft.sHum" labelPlacement="start">{{ 'TIME_WEATHER.SHOW_HUMIDITY' | translate }}</ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-toggle [(ngModel)]="draft.sWind" labelPlacement="start">{{ 'TIME_WEATHER.SHOW_WIND' | translate }}</ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-toggle [(ngModel)]="draft.sWDir" labelPlacement="start">{{ 'TIME_WEATHER.SHOW_WIND_DIR' | translate }}</ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-toggle [(ngModel)]="draft.sPress" labelPlacement="start">{{ 'TIME_WEATHER.SHOW_PRESSURE' | translate }}</ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-toggle [(ngModel)]="draft.sHL" labelPlacement="start">{{ 'TIME_WEATHER.SHOW_HIGH_LOW' | translate }}</ion-toggle>
+          </ion-item>
+        }
+      }
+    </ion-list>
+  }
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button expand="block" [disabled]="saving || !draft || (apiKeyValid === true && !draft.city)" (click)="send()">
+    @if (saving) { <ion-spinner name="crescent"></ion-spinner> }
+    @else { {{ 'DEVICES.SEND_SETTINGS' | translate }} }
+  </ion-button>
+</ion-footer>

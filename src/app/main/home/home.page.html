@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'HOME.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      [pullingText]="'HOME.PULL_TO_REFRESH' | translate"
+      [refreshingText]="'HOME.REFRESHING' | translate"
+    ></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Benvenuto -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ 'HOME.WELCOME_TITLE' | translate }}</ion-card-title>
+      <ion-card-subtitle>{{ 'HOME.WELCOME_SUBTITLE' | translate }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <!-- Dispositivi -->
+  <ion-card class="ion-margin-top">
+    <ion-card-header>
+      <ion-card-title>
+        {{ 'HOME.DEVICES_SECTION' | translate }}
+        <ion-badge color="primary" style="margin-left:8px">{{ devices.length }}</ion-badge>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      @if (devices.length === 0) {
+        <p>{{ 'HOME.NO_DEVICES' | translate }}</p>
+        <ion-button fill="outline" size="small" (click)="goToDevices()">
+          {{ 'DEVICES.ADD_DEVICE' | translate }}
+        </ion-button>
+      } @else {
+        <ion-list lines="none">
+          @for (d of devices; track d.id) {
+            <ion-item button (click)="goToDevices()">
+              <ion-icon name="bluetooth" slot="start" color="primary"></ion-icon>
+              <ion-label>{{ d.alias || d.name }}</ion-label>
+              <ion-icon name="chevron-forward" slot="end"></ion-icon>
+            </ion-item>
+          }
+        </ion-list>
+      }
+    </ion-card-content>
+  </ion-card>
+
+  <!-- News -->
+  <h2 class="ion-margin-top ion-margin-start font-doto-black">{{ 'HOME.NEWS_SECTION' | translate }}</h2>
+
+  @if (newsLoading) {
+    @for (_ of [1, 2, 3]; track _) {
+      <ion-card>
+        <div class="news-thumb-skeleton">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+        <ion-card-header>
+          <ion-skeleton-text animated style="width: 65%; height: 18px; margin-bottom: 6px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 38%; height: 14px;"></ion-skeleton-text>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-skeleton-text animated style="width: 100%; height: 13px; margin-bottom: 6px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 85%; height: 13px;"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+    }
+  } @else if (newsError === 'offline') {
+    <div class="news-state ion-text-center ion-padding">
+      <ion-icon name="wifi-outline"></ion-icon>
+      <p>{{ 'HOME.NO_INTERNET' | translate }}</p>
+      <ion-button fill="outline" size="small" (click)="loadNews()">
+        <ion-icon name="refresh-outline" slot="start"></ion-icon>
+        {{ 'COMMON.RETRY' | translate }}
+      </ion-button>
+    </div>
+  } @else if (newsError === 'empty') {
+    <div class="news-state ion-text-center ion-padding">
+      <p>{{ 'HOME.NO_NEWS' | translate }}</p>
+    </div>
+  } @else {
+    @for (item of newsList; track item.id) {
+      <ion-card button (click)="openNews(item.id)">
+        @if (item.thumbnail) {
+          <img [src]="mediaBase + item.thumbnail" [alt]="item.title" class="news-thumb" />
+        }
+        <ion-card-header>
+          <ion-card-title>{{ item.title }}</ion-card-title>
+          <ion-card-subtitle>{{ item.published_at | date:'dd/MM/yyyy' }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p class="news-summary" [innerHTML]="item.summary"></p>
+        </ion-card-content>
+      </ion-card>
+    }
+  }
+
+</ion-content>
+
+<style>
+  .news-thumb-skeleton {
+    width: 100%;
+    height: 160px;
+  }
+  .news-thumb-skeleton ion-skeleton-text {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+  .news-thumb {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+  .news-summary {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ion-color-medium);
+  }
+  .news-state {
+    margin-top: 16px;
+  }
+  .news-state ion-icon {
+    font-size: 52px;
+    color: var(--ion-color-medium);
+    display: block;
+    margin: 0 auto 12px;
+  }
+  .news-state p {
+    color: var(--ion-color-medium);
+    margin-bottom: 16px;
+  }
+</style>

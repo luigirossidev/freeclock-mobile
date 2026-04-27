@@ -1,0 +1,193 @@
+@use "sass:meta";
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import '@ionic/angular/css/palettes/dark.system.css';
+
+// ---------------------------------------------------------------------------
+// Font: Ubuntu (400 / 700, normal / italic) — assets/fonts/ubuntu
+// ---------------------------------------------------------------------------
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/ubuntu/ubuntu-latin-ext-400-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/ubuntu/ubuntu-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/ubuntu/ubuntu-latin-400-italic.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('assets/fonts/ubuntu/ubuntu-latin-ext-700-normal.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('assets/fonts/ubuntu/ubuntu-latin-700-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('assets/fonts/ubuntu/ubuntu-latin-700-italic.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --ion-font-family: 'Ubuntu', sans-serif;
+}
+
+// ---------------------------------------------------------------------------
+// Font: Doto (variable, weight 100–900, ROND 0–1) — assets/fonts/doto
+// ROND=0  puntini quadrati/aperti → class="font-doto"
+// ROND=1  puntini tondi/pieni     → class="font-doto-black"
+// Asse peso:  font-weight: 100..900
+// ---------------------------------------------------------------------------
+
+@font-face {
+  font-family: 'Doto';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('assets/fonts/doto/doto-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Doto';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('assets/fonts/doto/doto-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --font-doto: 'Doto', monospace;
+}
+
+.font-doto {
+  font-family: var(--font-doto);
+  font-variation-settings: 'ROND' 0;
+}
+
+.font-doto-black {
+  font-family: var(--font-doto);
+  font-variation-settings: 'ROND' 1;
+  color: var(--ion-color-primary);
+  font-size: 1.8rem;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .font-doto-black {
+    color: orange;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Sfondo: dot grid — assets/dot-grid.svg (inline data URI per dark mode)
+// Light: puntini navy (#09244B) a 15% opacità
+// Dark:  puntini bianchi a 10% opacità
+// ---------------------------------------------------------------------------
+
+body {
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2309244B' fill-opacity='0.15' d='M5.5,17 C6.32843,17 7,17.6716 7,18.5 C7,19.3284 6.32843,20 5.5,20 C4.67157,20 4,19.3284 4,18.5 C4,17.6716 4.67157,17 5.5,17 Z M12,17 C12.8284,17 13.5,17.6716 13.5,18.5 C13.5,19.3284 12.8284,20 12,20 C11.1716,20 10.5,19.3284 10.5,18.5 C10.5,17.6716 11.1716,17 12,17 Z M18.5,17 C19.3284,17 20,17.6716 20,18.5 C20,19.3284 19.3284,20 18.5,20 C17.6716,20 17,19.3284 17,18.5 C17,17.6716 17.6716,17 18.5,17 Z M5.5,10.5 C6.32843,10.5 7,11.1716 7,12 C7,12.8284 6.32843,13.5 5.5,13.5 C4.67157,13.5 4,12.8284 4,12 C4,11.1716 4.67157,10.5 5.5,10.5 Z M12,10.5 C12.8284,10.5 13.5,11.1716 13.5,12 C13.5,12.8284 12.8284,13.5 12,13.5 C11.1716,13.5 10.5,12.8284 10.5,12 C10.5,11.1716 11.1716,10.5 12,10.5 Z M18.5,10.5 C19.3284,10.5 20,11.1716 20,12 C20,12.8284 19.3284,13.5 18.5,13.5 C17.6716,13.5 17,12.8284 17,12 C17,11.1716 17.6716,10.5 18.5,10.5 Z M5.5,4 C6.32843,4 7,4.67157 7,5.5 C7,6.32843 6.32843,7 5.5,7 C4.67157,7 4,6.32843 4,5.5 C4,4.67157 4.67157,4 5.5,4 Z M12,4 C12.8284,4 13.5,4.67157 13.5,5.5 C13.5,6.32843 12.8284,7 12,7 C11.1716,7 10.5,6.32843 10.5,5.5 C10.5,4.67157 11.1716,4 12,4 Z M18.5,4 C19.3284,4 20,4.67157 20,5.5 C20,6.32843 19.3284,7 18.5,7 C17.6716,7 17,6.32843 17,5.5 C17,4.67157 17.6716,4 18.5,4 Z'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 40px 40px;
+  background-attachment: fixed;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M5.5,17 C6.32843,17 7,17.6716 7,18.5 C7,19.3284 6.32843,20 5.5,20 C4.67157,20 4,19.3284 4,18.5 C4,17.6716 4.67157,17 5.5,17 Z M12,17 C12.8284,17 13.5,17.6716 13.5,18.5 C13.5,19.3284 12.8284,20 12,20 C11.1716,20 10.5,19.3284 10.5,18.5 C10.5,17.6716 11.1716,17 12,17 Z M18.5,17 C19.3284,17 20,17.6716 20,18.5 C20,19.3284 19.3284,20 18.5,20 C17.6716,20 17,19.3284 17,18.5 C17,17.6716 17.6716,17 18.5,17 Z M5.5,10.5 C6.32843,10.5 7,11.1716 7,12 C7,12.8284 6.32843,13.5 5.5,13.5 C4.67157,13.5 4,12.8284 4,12 C4,11.1716 4.67157,10.5 5.5,10.5 Z M12,10.5 C12.8284,10.5 13.5,11.1716 13.5,12 C13.5,12.8284 12.8284,13.5 12,13.5 C11.1716,13.5 10.5,12.8284 10.5,12 C10.5,11.1716 11.1716,10.5 12,10.5 Z M18.5,10.5 C19.3284,10.5 20,11.1716 20,12 C20,12.8284 19.3284,13.5 18.5,13.5 C17.6716,13.5 17,12.8284 17,12 C17,11.1716 17.6716,10.5 18.5,10.5 Z M5.5,4 C6.32843,4 7,4.67157 7,5.5 C7,6.32843 6.32843,7 5.5,7 C4.67157,7 4,6.32843 4,5.5 C4,4.67157 4.67157,4 5.5,4 Z M12,4 C12.8284,4 13.5,4.67157 13.5,5.5 C13.5,6.32843 12.8284,7 12,7 C11.1716,7 10.5,6.32843 10.5,5.5 C10.5,4.67157 11.1716,4 12,4 Z M18.5,4 C19.3284,4 20,4.67157 20,5.5 C20,6.32843 19.3284,7 18.5,7 C17.6716,7 17,6.32843 17,5.5 C17,4.67157 17.6716,4 18.5,4 Z'/%3E%3C/svg%3E");
+  }
+}
+
+ion-content {
+  --background: rgba(var(--ion-background-color-rgb), 0.8);
+}
+@include meta.load-css('theme/bg-dot-8px');

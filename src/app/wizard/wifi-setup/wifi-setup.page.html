@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/wizard/pin"></ion-back-button></ion-buttons>
+    <ion-title>{{ 'WIZARD.SELECT_WIFI' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if (scanning) {
+    <div class="scan-state">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <h2>{{ 'WIZARD.SCANNING_WIFI' | translate }}</h2>
+      <p [innerHTML]="'WIFI.SCAN_HINT' | translate"></p>
+    </div>
+  }
+
+  @if (!scanning && !selectedNetwork && networks.length === 0) {
+    <div class="scan-state">
+      <ion-icon name="wifi-outline" color="medium"></ion-icon>
+      <h2>{{ 'WIFI.NO_NETWORKS' | translate }}</h2>
+      <p [innerHTML]="'WIFI.NO_NETWORKS_HINT' | translate"></p>
+      <ion-button (click)="startScan()" class="ion-margin-top">{{ 'WIZARD.RETRY_SCAN' | translate }}</ion-button>
+    </div>
+  }
+
+  @if (!scanning && !selectedNetwork && networks.length > 0) {
+    <ion-list>
+      @for (net of networks; track net.s) {
+        <ion-item button (click)="selectNetwork(net)">
+          <ion-label>
+            <h2>{{ net.s }}</h2>
+            <p>{{ net.e }} &middot; {{ net.r }} dBm</p>
+          </ion-label>
+          <div class="wifi-bars" slot="end">
+            @for (bar of [1,2,3,4]; track bar) {
+              <span class="bar" [class.active]="bar <= wifiLevel(net.r)"></span>
+            }
+          </div>
+        </ion-item>
+      }
+    </ion-list>
+  }
+
+  @if (selectedNetwork) {
+    <h2>{{ selectedNetwork.s }}</h2>
+    @if (selectedNetwork.e !== 'OPEN') {
+      <ion-item>
+        <ion-input
+          [label]="'WIZARD.WIFI_PASSWORD' | translate"
+          labelPlacement="stacked"
+          type="password"
+          [(ngModel)]="password"
+        >
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+    }
+    @if (wifiError) {
+      <ion-text color="danger"><p>{{ 'WIZARD.WIFI_FAILED' | translate }}</p></ion-text>
+    }
+    <ion-button expand="block" class="ion-margin-top" [disabled]="connecting" (click)="connectWifi()">
+      @if (connecting) { <ion-spinner name="crescent"></ion-spinner> }
+      @else { {{ 'WIZARD.CONNECT' | translate }} }
+    </ion-button>
+  }
+</ion-content>
+
+<style>
+  .wifi-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 20px;
+    padding-right: 4px;
+  }
+  .wifi-bars .bar {
+    width: 5px;
+    border-radius: 1px;
+    background: var(--ion-color-medium);
+    opacity: 0.25;
+  }
+  .wifi-bars .bar:nth-child(1) { height: 5px; }
+  .wifi-bars .bar:nth-child(2) { height: 9px; }
+  .wifi-bars .bar:nth-child(3) { height: 13px; }
+  .wifi-bars .bar:nth-child(4) { height: 18px; }
+  .wifi-bars .bar.active {
+    background: var(--ion-color-primary);
+    opacity: 1;
+  }
+</style>

@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>{{ 'JUKEBOX.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (loading) {
+    <div class="ion-text-center ion-padding">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  } @else {
+    <ion-list>
+      <ion-item>
+        <ion-select
+          [label]="'JUKEBOX.MELODY' | translate"
+          labelPlacement="stacked"
+          [(ngModel)]="selectedId"
+          (ionChange)="onMelodyChange()"
+          interface="alert"
+        >
+          @for (m of melodies; track m.i) {
+            <ion-select-option [value]="m.i">{{ m.n }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          [label]="'JUKEBOX.MESSAGE' | translate"
+          labelPlacement="stacked"
+          [placeholder]="'JUKEBOX.MESSAGE_HINT' | translate"
+          [(ngModel)]="message"
+          maxlength="255"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          [label]="'JUKEBOX.REPEAT' | translate"
+          labelPlacement="stacked"
+          type="number"
+          min="1"
+          max="1000"
+          [(ngModel)]="repeatCount"
+        ></ion-input>
+        <ion-note slot="helper">{{ 'JUKEBOX.REPEAT_HINT' | translate }}</ion-note>
+      </ion-item>
+    </ion-list>
+  }
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-button expand="block" [disabled]="sending || loading || !message.trim()" (click)="play()">
+    @if (sending) { <ion-spinner name="crescent"></ion-spinner> }
+    @else { {{ 'JUKEBOX.PLAY' | translate }} }
+  </ion-button>
+</ion-footer>

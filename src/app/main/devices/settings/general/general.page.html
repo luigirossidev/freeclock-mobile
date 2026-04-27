@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>{{ 'GENERAL.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="info-note">
+    <ion-icon name="information-circle-outline" color="tertiary"></ion-icon>
+    <p [innerHTML]="'GENERAL.AUTO_SCROLL_HINT' | translate"></p>
+  </div>
+
+  @if (draft) {
+    <ion-list>
+      <app-module-toggle label="GENERAL.CLOCK"    icon="time-outline"         [enabled]="draft.clk"   [autoScroll]="draft.clkAS"   (enabledChange)="draft.clk=$event"   (autoScrollChange)="draft.clkAS=$event" />
+      <app-module-toggle label="GENERAL.CALENDAR" icon="calendar-outline"     [enabled]="draft.cal"   [autoScroll]="draft.calAS"   (enabledChange)="draft.cal=$event"   (autoScrollChange)="draft.calAS=$event" />
+      <app-module-toggle label="GENERAL.WEATHER"  icon="cloud-outline"        [enabled]="draft.wea"   [autoScroll]="draft.weaAS"   (enabledChange)="draft.wea=$event"   (autoScrollChange)="draft.weaAS=$event" [disabled]="!weatherConfigured" [hint]="'GENERAL.WEATHER_NOT_CONFIGURED'" />
+      <app-module-toggle label="GENERAL.NEWS"     icon="newspaper-outline"    [enabled]="draft.news"  [autoScroll]="draft.newsAS"  (enabledChange)="draft.news=$event"  (autoScrollChange)="draft.newsAS=$event" [disabled]="!newsConfigured" [hint]="'GENERAL.NEWS_NOT_CONFIGURED'" />
+      <app-module-toggle label="GENERAL.BRAND"    icon="pricetag-outline"     [enabled]="draft.brand" [autoScroll]="draft.brandAS" (enabledChange)="draft.brand=$event" (autoScrollChange)="draft.brandAS=$event" />
+      <app-module-toggle label="GENERAL.QUOTE"    icon="chatbubble-ellipses-outline" [enabled]="draft.quote" [autoScroll]="draft.quoteAS" (enabledChange)="draft.quote=$event" (autoScrollChange)="draft.quoteAS=$event" />
+      <app-module-toggle label="GENERAL.QUIZ"     icon="help-circle-outline"  [enabled]="draft.quiz"  [autoScroll]="draft.quizAS"  (enabledChange)="draft.quiz=$event"  (autoScrollChange)="draft.quizAS=$event" />
+      <ion-item-divider><ion-label>{{ 'GENERAL.REFRESH_RATE' | translate }}</ion-label></ion-item-divider>
+      <ion-item>
+        <ion-input type="number" [label]="'GENERAL.REFRESH_RATE' | translate" labelPlacement="stacked" [(ngModel)]="draft.refresh" min="1" max="60"></ion-input>
+      </ion-item>
+    </ion-list>
+  }
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button expand="block" [disabled]="saving || !draft" (click)="send()">
+    @if (saving) { <ion-spinner name="crescent"></ion-spinner> }
+    @else { {{ 'DEVICES.SEND_SETTINGS' | translate }} }
+  </ion-button>
+</ion-footer>

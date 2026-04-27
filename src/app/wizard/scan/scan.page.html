@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/wizard/welcome"></ion-back-button></ion-buttons>
+    <ion-title>{{ 'WIZARD.SELECT_DEVICE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if (scanning) {
+    <div class="scan-state">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <h2>{{ 'WIZARD.SCANNING' | translate }}</h2>
+      <p [innerHTML]="'WIZARD.SCAN_HINT' | translate"></p>
+    </div>
+  }
+  @if (!scanning && devices.length === 0) {
+    <div class="scan-state">
+      <ion-icon name="search-outline" color="medium"></ion-icon>
+      <h2>{{ 'WIZARD.NO_DEVICES' | translate }}</h2>
+      <p [innerHTML]="'WIZARD.SCAN_HINT' | translate"></p>
+      <ion-button (click)="scan()" class="ion-margin-top">{{ 'WIZARD.RETRY_SCAN' | translate }}</ion-button>
+    </div>
+  }
+  @if (devices.length > 0) {
+    <ion-list>
+      @for (device of devices; track device.deviceId) {
+        <ion-item button (click)="selectDevice(device)">
+          <ion-label>{{ device.name || 'FreeClock' }}</ion-label>
+        </ion-item>
+      }
+    </ion-list>
+  }
+</ion-content>

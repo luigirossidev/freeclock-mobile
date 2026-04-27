@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/wizard/scan"></ion-back-button></ion-buttons>
+    <ion-title>{{ 'WIZARD.ENTER_PIN' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding ion-text-center">
+  @if (phase === 'connecting') {
+    <ion-spinner></ion-spinner>
+    <p>{{ 'WIZARD.CONNECTING' | translate }}</p>
+  }
+
+  @if (phase === 'pin') {
+    <p>{{ 'WIZARD.PIN_HINT' | translate }}</p>
+    <ion-item>
+      <ion-input
+        type="number"
+        inputmode="numeric"
+        [placeholder]="'WIZARD.PIN_PLACEHOLDER' | translate"
+        [(ngModel)]="pinValue"
+        maxlength="6"
+      ></ion-input>
+    </ion-item>
+    @if (pinError) {
+      <ion-text color="danger"><p>{{ 'WIZARD.WRONG_PIN' | translate }}</p></ion-text>
+    }
+    <ion-button expand="block" class="ion-margin-top" (click)="verifyPin()" [disabled]="!pinValue || pinValue.length < 6">
+      {{ 'WIZARD.VERIFY_PIN' | translate }}
+    </ion-button>
+  }
+
+  @if (phase === 'verifying') {
+    <ion-spinner></ion-spinner>
+    <p>{{ 'WIZARD.VERIFY_PIN' | translate }}...</p>
+  }
+
+  @if (error) {
+    <ion-text color="danger"><p>{{ error }}</p></ion-text>
+    <ion-button (click)="connectDevice()">{{ 'COMMON.RETRY' | translate }}</ion-button>
+  }
+</ion-content>

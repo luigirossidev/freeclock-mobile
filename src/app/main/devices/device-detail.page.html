@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/main/devices"></ion-back-button></ion-buttons>
+    <ion-title>{{ deviceName }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="ion-padding-horizontal ion-padding-top">
+    <app-connection-status />
+  </div>
+
+  <ion-list class="ion-margin-top">
+    @for (entry of mainSettings; track entry.path) {
+      <ion-item button (click)="navigate(entry.path)">
+        <ion-icon [name]="entry.icon" slot="start"></ion-icon>
+        <ion-label>{{ entry.label | translate }}</ion-label>
+        <ion-icon name="chevron-forward" slot="end"></ion-icon>
+      </ion-item>
+    }
+    <ion-item button (click)="navigate('device-info')">
+      <ion-icon name="hardware-chip-outline" slot="start"></ion-icon>
+      <ion-label>{{ 'DEVICE.INFO' | translate }}</ion-label>
+      <ion-icon name="chevron-forward" slot="end"></ion-icon>
+    </ion-item>
+
+    <ion-item-divider>
+      <ion-label>{{ 'SETTINGS.CONFIGURE_FEATURES' | translate }}</ion-label>
+    </ion-item-divider>
+
+    @for (entry of featureSettings; track entry.path) {
+      <ion-item button (click)="navigate(entry.path)">
+        <ion-icon [name]="entry.icon" slot="start"></ion-icon>
+        <ion-label>{{ entry.label | translate }}</ion-label>
+        <ion-icon name="chevron-forward" slot="end"></ion-icon>
+      </ion-item>
+    }
+  </ion-list>
+</ion-content>

@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>{{ 'NEWS.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if (draft) {
+    <ion-list>
+      <!-- Step 1: API Key info + input -->
+      @if (!draft.key.trim()) {
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ 'NEWS.API_KEY_SETUP_TITLE' | translate }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p [innerHTML]="'NEWS.API_KEY_SETUP_INFO' | translate"></p>
+            <ion-button fill="outline" size="small" class="ion-margin-top" (click)="openGetApiKey()">
+              <ion-icon name="open-outline" slot="start"></ion-icon>
+              {{ 'NEWS.GET_API_KEY' | translate }}
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      }
+
+      <ion-item>
+        <ion-input
+          [label]="'NEWS.API_KEY' | translate"
+          labelPlacement="stacked"
+          [(ngModel)]="draft.key"
+          (ionInput)="onApiKeyChange()"
+          [placeholder]="'NEWS.API_KEY_PLACEHOLDER' | translate"
+        ></ion-input>
+      </ion-item>
+
+      <!-- Step 2: Test API key -->
+      @if (draft.key.trim()) {
+        <ion-item>
+          <ion-button
+            fill="outline"
+            size="small"
+            [disabled]="apiKeyTesting"
+            (click)="testApiKey()"
+          >
+            @if (apiKeyTesting) {
+              <ion-spinner name="crescent" slot="start"></ion-spinner>
+            }
+            {{ 'NEWS.TEST_API_KEY' | translate }}
+          </ion-button>
+          @if (apiKeyValid === true) {
+            <ion-icon name="checkmark-circle" color="success" slot="end"></ion-icon>
+            <ion-note slot="end" color="success">{{ 'NEWS.API_KEY_VALID' | translate }}</ion-note>
+          } @else if (apiKeyValid === false) {
+            <ion-icon name="alert-circle" color="danger" slot="end"></ion-icon>
+            <ion-note slot="end" color="danger">{{ 'NEWS.API_KEY_INVALID' | translate }}</ion-note>
+          }
+        </ion-item>
+      }
+
+      <!-- Step 3: Source selection (only if key is valid) -->
+      @if (apiKeyValid === true) {
+        @if (selectedSourceName) {
+          <ion-item>
+            <ion-label>
+              <h2>{{ 'NEWS.SELECTED_SOURCE' | translate }}</h2>
+              <p>{{ selectedSourceName }}</p>
+            </ion-label>
+          </ion-item>
+        }
+
+        @if (loadingSources) {
+          <ion-item>
+            <ion-spinner name="crescent" slot="start"></ion-spinner>
+            <ion-label>{{ 'COMMON.LOADING' | translate }}</ion-label>
+          </ion-item>
+        } @else {
+          <ion-searchbar
+            [placeholder]="'NEWS.SEARCH_SOURCE' | translate"
+            (ionInput)="onSearchSource($event)"
+            debounce="300"
+          ></ion-searchbar>
+
+          @if (filteredSources.length === 0) {
+            <ion-item>
+              <ion-note color="medium">{{ 'NEWS.NO_SOURCES' | translate }}</ion-note>
+            </ion-item>
+          }
+
+          @for (source of filteredSources; track source.id) {
+            <ion-item
+              button
+              (click)="selectSource(source)"
+              [class.selected]="source.id === draft.src"
+            >
+              <ion-label>
+                <h2>{{ source.name }}</h2>
+                <p>{{ source.description }}</p>
+              </ion-label>
+              <ion-note slot="end">{{ source.category }}</ion-note>
+            </ion-item>
+          }
+        }
+      }
+    </ion-list>
+  }
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button expand="block" [disabled]="saving || !draft || !draft.key.trim() || !draft.src.trim()" (click)="send()">
+    @if (saving) { <ion-spinner name="crescent"></ion-spinner> }
+    @else { {{ 'DEVICES.SEND_SETTINGS' | translate }} }
+  </ion-button>
+</ion-footer>

@@ -1,0 +1,15 @@
+.sub-item {
+  --padding-start: 32px;
+  font-size: 0.85rem;
+}
+
+.hint-item {
+  --padding-start: 48px;
+  --min-height: auto;
+
+  ion-note {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    padding: 0 0 8px;
+  }
+}

@@ -1,0 +1,29 @@
+<ion-item>
+  @if (icon) {
+    <ion-icon [name]="icon" slot="start" color="primary"></ion-icon>
+  }
+  <ion-toggle
+    [checked]="enabled"
+    [disabled]="disabled"
+    (ionChange)="enabledChange.emit($event.detail.checked)"
+    labelPlacement="start"
+  >
+    {{ label | translate }}
+  </ion-toggle>
+</ion-item>
+@if (disabled && hint) {
+  <ion-item class="hint-item" lines="none">
+    <ion-note color="medium">{{ hint | translate }}</ion-note>
+  </ion-item>
+}
+@if (enabled && showAutoScroll) {
+  <ion-item class="sub-item">
+    <ion-toggle
+      [checked]="autoScroll"
+      (ionChange)="autoScrollChange.emit($event.detail.checked)"
+      labelPlacement="start"
+    >
+      {{ 'GENERAL.AUTO_SCROLL' | translate }}
+    </ion-toggle>
+  </ion-item>
+}

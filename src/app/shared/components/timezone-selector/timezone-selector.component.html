@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">{{ 'COMMON.CANCEL' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'TIME_WEATHER.SELECT_TIMEZONE' | translate }}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      [placeholder]="'TIME_WEATHER.SEARCH_TIMEZONE' | translate"
+      (ionInput)="onSearch($event)"
+      debounce="300"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    @for (group of groupedResults; track group.region) {
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>{{ group.region }}</ion-label>
+        </ion-item-divider>
+        @for (tz of group.entries; track tz.iana) {
+          <ion-item
+            button
+            (click)="select(tz)"
+            [class.selected]="tz.posix === currentPosix"
+          >
+            <ion-label>
+              <h2>{{ tz.label }}</h2>
+              <p>{{ tz.iana }}</p>
+            </ion-label>
+          </ion-item>
+        }
+      </ion-item-group>
+    }
+  </ion-list>
+</ion-content>

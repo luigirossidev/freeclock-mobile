@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/wizard/wifi-setup"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'TIME_WEATHER.SELECT_TIMEZONE' | translate }}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      [placeholder]="'TIME_WEATHER.SEARCH_TIMEZONE' | translate"
+      (ionInput)="onSearch($event)"
+      debounce="300"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <!-- Voce selezionata pinnata in cima -->
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-label>{{ 'TIME_WEATHER.SELECTED_TZ' | translate }}</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>
+          <h2>{{ selectedEntry.label }}</h2>
+          <p>{{ selectedEntry.iana }}</p>
+        </ion-label>
+        <ion-icon name="checkmark-circle" color="primary" slot="end"></ion-icon>
+      </ion-item>
+    </ion-item-group>
+
+    @for (group of groupedResults; track group.region) {
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>{{ group.region }}</ion-label>
+        </ion-item-divider>
+        @for (tz of group.entries; track tz.iana) {
+          <ion-item
+            button
+            (click)="select(tz)"
+            [class.selected]="tz.iana === selectedIana"
+          >
+            <ion-label>
+              <h2>{{ tz.label }}</h2>
+              <p>{{ tz.iana }}</p>
+            </ion-label>
+          </ion-item>
+        }
+      </ion-item-group>
+    }
+  </ion-list>
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-button expand="block" [disabled]="saving" (click)="confirm()">
+    @if (saving) { <ion-spinner name="crescent"></ion-spinner> }
+    @else { {{ 'WIZARD.NEXT' | translate }} }
+  </ion-button>
+</ion-footer>
