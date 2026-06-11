@@ -61,9 +61,13 @@ export class BleService {
     this.intentionalDisconnect = false;
 
     try {
+      await this.ensureDeviceKnown(deviceId);
+
+      // Timeout esteso: con WiFi attivo l'advertising dell'ESP32 è degradato
+      // dalla coesistenza radio e su iOS l'aggancio può richiedere >10s
       await BleClient.connect(deviceId, () => {
         this.ngZone.run(() => this.onDisconnect(deviceId));
-      });
+      }, { timeout: 30000 });
 
       // Request high MTU for JSON payloads (Android only)
       try {
@@ -83,6 +87,31 @@ export class BleService {
       this.connectionState$.next('disconnected');
       throw error;
     }
+  }
+
+  // Il plugin conosce solo i device scoperti nella sessione corrente: su iOS,
+  // dopo un riavvio dell'app, il peripheral va prima recuperato dal sistema
+  // tramite il suo identificativo, altrimenti connect fallisce subito con
+  // "Device not found"
+  private async ensureDeviceKnown(deviceId: string): Promise<void> {
+    try {
+      const known = await BleClient.getDevices([deviceId]);
+      if (known.length > 0) return;
+    } catch {
+      // getDevices fallito: si tenta la riscoperta via scansione
+    }
+
+    // Identificativo non più noto al sistema: riscopri il device in aria
+    let found = false;
+    await BleClient.requestLEScan({ services: [BLE_SERVICE_UUID] }, (result) => {
+      if (result.device.deviceId === deviceId) found = true;
+    });
+    const deadline = Date.now() + 10000;
+    while (!found && Date.now() < deadline) {
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+    await BleClient.stopLEScan();
+    if (!found) throw new Error('Device not found');
   }
 
   async disconnect(): Promise<void> {
@@ -150,7 +179,18 @@ export class BleService {
   }
 
   async sendCommand(cmd: DeviceCommandType): Promise<void> {
+    // Questi comandi riavviano il dispositivo: la connessione va chiusa
+    // pulitamente lato app, altrimenti su iOS il peripheral resta in stato
+    // "disconnecting" e la connessione successiva va in timeout; inoltre
+    // l'auto-reconnect non deve scattare verso un dispositivo in riavvio
+    const rebootsDevice = cmd === 'reboot' || cmd === 'factory_reset' || cmd === 'ota_update';
+    if (rebootsDevice) {
+      this.intentionalDisconnect = true;
+    }
     await this.writeCharacteristic(CHAR_COMMAND_UUID, { cmd });
+    if (rebootsDevice) {
+      await this.disconnect();
+    }
   }
 
   async writeWifiConfig(ssid: string, pass: string): Promise<void> {

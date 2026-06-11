@@ -24,6 +24,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>The app uses Bluetooth to find and configure your FreeClock device.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>The app uses Bluetooth to find and configure your FreeClock device.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
