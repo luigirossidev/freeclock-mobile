@@ -9,26 +9,37 @@ export class PushNotificationService {
       return;
     }
 
-    await FirebaseMessaging.addListener('tokenReceived', (event) => {
-      console.log('FCM token refreshed:', event.token);
-    });
+    try {
+      await FirebaseMessaging.addListener('tokenReceived', (event) => {
+        console.log('FCM token refreshed:', event.token);
+      });
 
-    await FirebaseMessaging.addListener('notificationReceived', (event) => {
-      console.log('Notification received in foreground:', event.notification);
-    });
+      await FirebaseMessaging.addListener('notificationReceived', (event) => {
+        console.log('Notification received in foreground:', event.notification);
+      });
 
-    await FirebaseMessaging.addListener('notificationActionPerformed', (event) => {
-      console.log('Notification tapped:', event.notification);
-    });
+      await FirebaseMessaging.addListener('notificationActionPerformed', (event) => {
+        console.log('Notification tapped:', event.notification);
+      });
 
-    const permission = await FirebaseMessaging.requestPermissions();
-    if (permission.receive !== 'granted') {
-      console.warn('Push notification permission not granted');
-      return;
+      // iOS mostra il prompt solo se lo stato è 'prompt' (non ancora deciso):
+      // se l'utente ha gia' risposto in passato, requestPermissions non
+      // ripropone il dialog. Logghiamo lo stato per diagnosticare.
+      const current = await FirebaseMessaging.checkPermissions();
+      console.log('Push permission status (check):', current.receive);
+
+      const permission = await FirebaseMessaging.requestPermissions();
+      console.log('Push permission status (request):', permission.receive);
+      if (permission.receive !== 'granted') {
+        console.warn('Push notification permission not granted');
+        return;
+      }
+
+      const { token } = await FirebaseMessaging.getToken();
+      console.log('FCM token:', token);
+    } catch (error) {
+      console.error('Push notification initialization failed:', error);
     }
-
-    const { token } = await FirebaseMessaging.getToken();
-    console.log('FCM token:', token);
   }
 
   async removeListeners(): Promise<void> {

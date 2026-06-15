@@ -24,6 +24,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>The app uses Bluetooth to find and configure your FreeClock device.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
