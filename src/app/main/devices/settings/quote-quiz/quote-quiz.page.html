@@ -7,6 +7,18 @@
 <ion-content class="ion-padding">
   @if (draft) {
     <ion-list>
+      <!-- Toggle di abilitazione: presenti solo sui dispositivi Oraquadra
+           (su FreeClock classico stanno nella pagina Funzionalita') -->
+      @if (draft.quote !== undefined) {
+        <ion-item>
+          <ion-toggle [(ngModel)]="draft.quote">{{ 'QUOTE_QUIZ.ENABLE_QUOTE' | translate }}</ion-toggle>
+        </ion-item>
+      }
+      @if (draft.quiz !== undefined) {
+        <ion-item>
+          <ion-toggle [(ngModel)]="draft.quiz">{{ 'QUOTE_QUIZ.ENABLE_QUIZ' | translate }}</ion-toggle>
+        </ion-item>
+      }
       <ion-item>
         <ion-input [label]="'QUOTE_QUIZ.QUOTE_URL' | translate" labelPlacement="stacked" [(ngModel)]="draft.quoteUrl"></ion-input>
       </ion-item>

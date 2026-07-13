@@ -76,7 +76,11 @@
     "QUOTE_QUIZ": "Citazioni ed Indovinelli",
     "DISPLAY": "Impostazioni Display",
     "WIFI": "Impostazioni WiFi",
-    "CONFIGURE_FEATURES": "Configura funzionalità"
+    "CONFIGURE_FEATURES": "Configura funzionalità",
+    "OQ_CLOCK": "Orologio ed effetti",
+    "OQ_SCROLL": "Testo scorrevole",
+    "OQ_DIGITAL": "Quadrante digitale",
+    "TIMEZONE": "Fuso orario"
   },
   "GENERAL": {
     "TITLE": "Funzionalità",
@@ -160,14 +164,16 @@
     "TITLE": "Citazioni ed Indovinelli",
     "QUOTE_URL": "URL citazione del giorno",
     "QUIZ_URL": "URL quiz del giorno",
-    "QUIZ_HOUR": "Ora soluzione quiz"
+    "QUIZ_HOUR": "Ora soluzione quiz",
+    "ENABLE_QUOTE": "Abilita frase del giorno",
+    "ENABLE_QUIZ": "Abilita indovinello del giorno"
   },
   "DISPLAY": {
     "TITLE": "Display",
     "BRIGHTNESS": "Luminosita",
     "SPEED": "Velocita transizione",
     "SCROLL_INTERVAL": "Intervallo scorrimento (min)",
-"TURN_ON": "Ora accensione",
+    "TURN_ON": "Ora accensione",
     "TURN_OFF": "Ora spegnimento",
     "SCHEDULE": "Programmazione"
   },
@@ -220,5 +226,50 @@
     "EXIT_TITLE": "Chiudi l'app",
     "EXIT_MESSAGE": "Vuoi uscire da FreeClock?",
     "EXIT": "Esci"
+  },
+  "OQ_CLOCK": {
+    "TITLE": "Orologio ed effetti",
+    "POWER": "Display acceso",
+    "PRESET": "Preset effetto",
+    "COLOR": "Colore parole",
+    "RAINBOW": "Colore arcobaleno",
+    "BLINK": "Lampeggio secondi",
+    "SCHEDULE": "Luminosità e fasce orarie",
+    "DAY_BRIGHT": "Luminosità giorno",
+    "NIGHT_BRIGHT": "Luminosità sera",
+    "DAY_START": "Inizio giorno",
+    "NIGHT_START": "Inizio sera",
+    "SLEEP_ENABLED": "Spegnimento notturno",
+    "SLEEP_START": "Ora spegnimento"
+  },
+  "OQ_SCROLL": {
+    "TITLE": "Testo scorrevole",
+    "ENABLED": "Abilita testo scorrevole",
+    "TEXT": "Testo personalizzato",
+    "COLOR": "Colore testo",
+    "RAINBOW": "Colore arcobaleno",
+    "SPEED": "Velocità (ms tra i frame)",
+    "FONT_SIZE": "Dimensione font",
+    "FONT_SMALL": "Piccolo",
+    "FONT_MEDIUM": "Medio",
+    "FONT_LARGE": "Grande",
+    "PAUSE": "Pausa tra i passaggi (s)",
+    "CONTENT": "Contenuti",
+    "SHOW_TEXT": "Mostra testo personalizzato",
+    "SHOW_DATE": "Mostra data",
+    "SHOW_TIME": "Mostra ora",
+    "TEXTUAL": "Data/ora in formato testuale",
+    "SHOW_PRESET": "Mostra orologio durante la pausa"
+  },
+  "OQ_DIGITAL": {
+    "TITLE": "Quadrante digitale",
+    "ENABLED": "Alterna quadrante digitale",
+    "INTERVAL": "Ogni quanti secondi appare (5-120)",
+    "DURATION": "Durata visualizzazione (s, 10-59)"
+  },
+  "OQ_TIMEZONE": {
+    "TITLE": "Fuso orario",
+    "CURRENT": "Fuso orario del dispositivo",
+    "NOT_SET": "Non impostato"
   }
 }

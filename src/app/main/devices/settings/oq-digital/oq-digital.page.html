@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>{{ 'OQ_DIGITAL.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if (draft) {
+    <ion-list>
+      <ion-item>
+        <ion-toggle [(ngModel)]="draft.enabled">{{ 'OQ_DIGITAL.ENABLED' | translate }}</ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-input [label]="'OQ_DIGITAL.INTERVAL' | translate" labelPlacement="stacked" type="number" min="5" max="120" [(ngModel)]="draft.interval"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [label]="'OQ_DIGITAL.DURATION' | translate" labelPlacement="stacked" type="number" min="10" max="59" [(ngModel)]="draft.duration"></ion-input>
+      </ion-item>
+    </ion-list>
+  }
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button expand="block" [disabled]="saving || !draft" (click)="send()">
+    @if (saving) { <ion-spinner name="crescent"></ion-spinner> }
+    @else { {{ 'DEVICES.SEND_SETTINGS' | translate }} }
+  </ion-button>
+</ion-footer>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent, IonHeader, IonToolbar, IonTitle, IonBackButton, IonButtons,
-  IonList, IonItem, IonInput, IonLabel, IonDatetime, IonFooter, IonButton, IonSpinner, ToastController,
+  IonList, IonItem, IonInput, IonLabel, IonDatetime, IonToggle, IonFooter, IonButton, IonSpinner, ToastController,
 } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DeviceStoreService } from '../../../../core/services/device-store.service';
@@ -14,7 +14,7 @@ import { QuoteQuizConfig } from '../../../../core/models/device-config.model';
   imports: [
     FormsModule, TranslateModule,
     IonContent, IonHeader, IonToolbar, IonTitle, IonBackButton, IonButtons,
-    IonList, IonItem, IonInput, IonLabel, IonDatetime, IonFooter, IonButton, IonSpinner,
+    IonList, IonItem, IonInput, IonLabel, IonDatetime, IonToggle, IonFooter, IonButton, IonSpinner,
   ],
   templateUrl: './quote-quiz.page.html',
 })

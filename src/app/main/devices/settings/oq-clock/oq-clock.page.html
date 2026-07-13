@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button></ion-back-button></ion-buttons>
+    <ion-title>{{ 'OQ_CLOCK.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if (draft) {
+    <ion-list>
+      <ion-item>
+        <ion-toggle [(ngModel)]="draft.power">{{ 'OQ_CLOCK.POWER' | translate }}</ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-select [label]="'OQ_CLOCK.PRESET' | translate" interface="action-sheet" [(ngModel)]="draft.preset">
+          @for (p of presets; track p.id) {
+            <ion-select-option [value]="p.id">{{ p.id }} - {{ p.name }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{ 'OQ_CLOCK.COLOR' | translate }}</ion-label>
+        <input slot="end" type="color" [(ngModel)]="colorHex" [disabled]="draft.rainbow" />
+      </ion-item>
+      <ion-item>
+        <ion-toggle [(ngModel)]="draft.rainbow">{{ 'OQ_CLOCK.RAINBOW' | translate }}</ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-toggle [(ngModel)]="draft.blink">{{ 'OQ_CLOCK.BLINK' | translate }}</ion-toggle>
+      </ion-item>
+
+      <ion-item-divider><ion-label>{{ 'OQ_CLOCK.SCHEDULE' | translate }}</ion-label></ion-item-divider>
+      <ion-item>
+        <ion-range [label]="'OQ_CLOCK.DAY_BRIGHT' | translate" labelPlacement="start" [min]="0" [max]="100" [step]="5" [pin]="true" [(ngModel)]="draft.dayBright"></ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-range [label]="'OQ_CLOCK.NIGHT_BRIGHT' | translate" labelPlacement="start" [min]="0" [max]="100" [step]="5" [pin]="true" [(ngModel)]="draft.nightBright"></ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-input [label]="'OQ_CLOCK.DAY_START' | translate" labelPlacement="stacked" type="time" [(ngModel)]="draft.dayStart"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [label]="'OQ_CLOCK.NIGHT_START' | translate" labelPlacement="stacked" type="time" [(ngModel)]="draft.nightStart"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-toggle [(ngModel)]="draft.sleepEnabled">{{ 'OQ_CLOCK.SLEEP_ENABLED' | translate }}</ion-toggle>
+      </ion-item>
+      @if (draft.sleepEnabled) {
+        <ion-item>
+          <ion-input [label]="'OQ_CLOCK.SLEEP_START' | translate" labelPlacement="stacked" type="time" [(ngModel)]="draft.sleepStart"></ion-input>
+        </ion-item>
+      }
+    </ion-list>
+  }
+</ion-content>
+<ion-footer class="ion-padding">
+  <ion-button expand="block" [disabled]="saving || !draft" (click)="send()">
+    @if (saving) { <ion-spinner name="crescent"></ion-spinner> }
+    @else { {{ 'DEVICES.SEND_SETTINGS' | translate }} }
+  </ion-button>
+</ion-footer>

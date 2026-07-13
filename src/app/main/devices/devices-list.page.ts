@@ -118,6 +118,14 @@ export class DevicesListPage implements OnDestroy {
       await this.ble.connect(device.id);
       await this.ble.authenticate(device.pin);
       await this.store.loadAllFromDevice();
+
+      // Mantieni aggiornato il tipo di dispositivo memorizzato (dispositivi
+      // associati prima dell'introduzione del campo o firmware cambiato)
+      const detectedType = this.store.deviceType;
+      if (detectedType && device.deviceType !== detectedType) {
+        await this.storage.addPairedDevice({ ...device, deviceType: detectedType });
+      }
+
       this.router.navigate(['/main/devices', device.id]);
     } catch (e: any) {
       const alert = await this.alertCtrl.create({

@@ -9,6 +9,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { BleService } from '../../core/services/ble.service';
 import { StorageService } from '../../core/services/storage.service';
+import { CHAR_STATUS_UUID } from '../../core/constants/ble-uuids';
+import { DeviceStatus } from '../../core/models/device-config.model';
 
 type Phase = 'idle' | 'connecting' | 'pin' | 'verifying';
 
@@ -81,10 +83,22 @@ export class PinPage {
       const ok = await this.ble.authenticate(pin);
       if (ok) {
         this.navigatingForward = true;
+
+        // Il tipo di dispositivo (FreeClock classico o Oraquadra) arriva dallo
+        // status BLE e determina quali impostazioni mostrera' l'app
+        let deviceType: string | undefined;
+        try {
+          const status = await this.ble.readCharacteristic<DeviceStatus>(CHAR_STATUS_UUID);
+          deviceType = status.deviceType;
+        } catch {
+          // Non bloccante: verra' riletto alla prossima connessione
+        }
+
         await this.storage.addPairedDevice({
           id: this.deviceId,
           name: this.deviceName || 'FreeClock',
           pin,
+          deviceType,
         });
         this.router.navigate(['/wizard/wifi-setup']);
       } else {

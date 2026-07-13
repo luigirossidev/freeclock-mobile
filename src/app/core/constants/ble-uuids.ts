@@ -13,4 +13,11 @@ export const CHAR_COMMAND_UUID      = 'FC0000A0-1234-5678-9ABC-DEFF0EEC10C0';
 export const CHAR_AUTH_UUID         = 'FC0000B0-1234-5678-9ABC-DEFF0EEC10C0';
 export const CHAR_MELODY_UUID       = 'FC0000C0-1234-5678-9ABC-DEFF0EEC10C0';
 
+// Characteristic specifiche dei dispositivi Oraquadra (deviceType 'oraquadra')
+export const CHAR_OQ_CLOCK_UUID     = 'FC0000D0-1234-5678-9ABC-DEFF0EEC10C0';
+export const CHAR_OQ_SCROLL_UUID    = 'FC0000E0-1234-5678-9ABC-DEFF0EEC10C0';
+export const CHAR_OQ_DIGITAL_UUID   = 'FC0000F0-1234-5678-9ABC-DEFF0EEC10C0';
+
 export const BLE_DEVICE_NAME_PREFIX = 'FreeClock-';
+
+export const DEVICE_TYPE_ORAQUADRA  = 'oraquadra';

@@ -76,7 +76,11 @@
     "QUOTE_QUIZ": "Quotes & Riddles",
     "DISPLAY": "Display Settings",
     "WIFI": "WiFi Settings",
-    "CONFIGURE_FEATURES": "Configure features"
+    "CONFIGURE_FEATURES": "Configure features",
+    "OQ_CLOCK": "Clock & effects",
+    "OQ_SCROLL": "Scrolling text",
+    "OQ_DIGITAL": "Digital dial",
+    "TIMEZONE": "Timezone"
   },
   "GENERAL": {
     "TITLE": "Features",
@@ -160,14 +164,16 @@
     "TITLE": "Quotes & Riddles",
     "QUOTE_URL": "Daily quote URL",
     "QUIZ_URL": "Daily quiz URL",
-    "QUIZ_HOUR": "Quiz solution hour"
+    "QUIZ_HOUR": "Quiz solution hour",
+    "ENABLE_QUOTE": "Enable daily quote",
+    "ENABLE_QUIZ": "Enable daily riddle"
   },
   "DISPLAY": {
     "TITLE": "Display",
     "BRIGHTNESS": "Brightness",
     "SPEED": "Transition speed",
     "SCROLL_INTERVAL": "Scroll interval (min)",
-"TURN_ON": "Turn on time",
+    "TURN_ON": "Turn on time",
     "TURN_OFF": "Turn off time",
     "SCHEDULE": "Schedule"
   },
@@ -220,5 +226,50 @@
     "EXIT_TITLE": "Close app",
     "EXIT_MESSAGE": "Do you want to exit FreeClock?",
     "EXIT": "Exit"
+  },
+  "OQ_CLOCK": {
+    "TITLE": "Clock & effects",
+    "POWER": "Display on",
+    "PRESET": "Effect preset",
+    "COLOR": "Word color",
+    "RAINBOW": "Rainbow color",
+    "BLINK": "Seconds blink",
+    "SCHEDULE": "Brightness & schedule",
+    "DAY_BRIGHT": "Day brightness",
+    "NIGHT_BRIGHT": "Night brightness",
+    "DAY_START": "Day starts at",
+    "NIGHT_START": "Night starts at",
+    "SLEEP_ENABLED": "Night shutdown",
+    "SLEEP_START": "Shutdown time"
+  },
+  "OQ_SCROLL": {
+    "TITLE": "Scrolling text",
+    "ENABLED": "Enable scrolling text",
+    "TEXT": "Custom text",
+    "COLOR": "Text color",
+    "RAINBOW": "Rainbow color",
+    "SPEED": "Speed (ms per frame)",
+    "FONT_SIZE": "Font size",
+    "FONT_SMALL": "Small",
+    "FONT_MEDIUM": "Medium",
+    "FONT_LARGE": "Large",
+    "PAUSE": "Pause between passes (s)",
+    "CONTENT": "Content",
+    "SHOW_TEXT": "Show custom text",
+    "SHOW_DATE": "Show date",
+    "SHOW_TIME": "Show time",
+    "TEXTUAL": "Textual date/time",
+    "SHOW_PRESET": "Show clock during pause"
+  },
+  "OQ_DIGITAL": {
+    "TITLE": "Digital dial",
+    "ENABLED": "Alternate digital dial",
+    "INTERVAL": "Appears every (s, 5-120)",
+    "DURATION": "Display duration (s, 10-59)"
+  },
+  "OQ_TIMEZONE": {
+    "TITLE": "Timezone",
+    "CURRENT": "Device timezone",
+    "NOT_SET": "Not set"
   }
 }

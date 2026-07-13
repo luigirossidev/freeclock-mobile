@@ -13,4 +13,9 @@ export const devicesRoutes: Routes = [
 { path: ':deviceId/wifi', loadComponent: () => import('./settings/wifi/wifi.page').then(m => m.WifiPage) },
   { path: ':deviceId/update', loadComponent: () => import('./settings/update/update.page').then(m => m.UpdatePage) },
   { path: ':deviceId/device-info', loadComponent: () => import('./settings/device-info/device-info.page').then(m => m.DeviceInfoPage) },
+  // Pagine specifiche dei dispositivi Oraquadra
+  { path: ':deviceId/oq-clock', loadComponent: () => import('./settings/oq-clock/oq-clock.page').then(m => m.OqClockPage) },
+  { path: ':deviceId/oq-scroll', loadComponent: () => import('./settings/oq-scroll/oq-scroll.page').then(m => m.OqScrollPage) },
+  { path: ':deviceId/oq-digital', loadComponent: () => import('./settings/oq-digital/oq-digital.page').then(m => m.OqDigitalPage) },
+  { path: ':deviceId/oq-timezone', loadComponent: () => import('./settings/oq-timezone/oq-timezone.page').then(m => m.OqTimezonePage) },
 ];

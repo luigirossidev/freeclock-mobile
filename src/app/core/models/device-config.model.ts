@@ -61,6 +61,8 @@ export interface QuoteQuizConfig {
   quoteUrl: string;
   quizUrl: string;
   quizHour: number;
+  quote?: boolean;  // solo Oraquadra: abilita frase del giorno
+  quiz?: boolean;   // solo Oraquadra: abilita indovinello del giorno
 }
 
 export interface DisplayConfig {
@@ -69,6 +71,51 @@ export interface DisplayConfig {
   scroll: number;   // minutes between scroll
   on: string;       // HH:MM
   off: string;      // HH:MM
+}
+
+// ==================== Oraquadra (deviceType 'oraquadra') ====================
+
+// Orologio a parole: preset effetto, colore, luminosita' e fasce orarie
+export interface OqClockConfig {
+  preset: number;        // 0-18
+  blink: boolean;        // lampeggio secondi sulla lettera E
+  color: string;         // hex RRGGBB (senza #)
+  rainbow: boolean;      // colore arcobaleno per il testo
+  power: boolean;        // display acceso
+  dayBright: number;     // 0-100
+  nightBright: number;   // 0-100
+  dayStart: string;      // HH:MM inizio fascia giorno
+  nightStart: string;    // HH:MM inizio fascia sera
+  sleepStart: string;    // HH:MM spegnimento notturno
+  sleepEnabled: boolean;
+}
+
+// Testo scorrevole
+export interface OqScrollConfig {
+  enabled: boolean;
+  text: string;          // max 200 caratteri ASCII
+  color: string;         // hex RRGGBB (senza #)
+  rainbow: boolean;
+  speed: number;         // ms tra i frame (10-500)
+  fontSize: number;      // 1=piccolo, 2=medio, 3=grande
+  pause: number;         // secondi di pausa tra i passaggi (0-60)
+  showText: boolean;
+  showDate: boolean;
+  showTime: boolean;
+  textual: boolean;      // data/ora in formato testuale
+  showPreset: boolean;   // mostra il preset durante la pausa
+}
+
+// Quadrante digitale alternato agli effetti
+export interface OqDigitalConfig {
+  enabled: boolean;
+  interval: number;      // secondi tra le apparizioni (5-120)
+  duration: number;      // secondi di permanenza (10-59)
+}
+
+// Characteristic TIMEWEATHER su Oraquadra: solo timezone
+export interface OqTimeConfig {
+  tz: string;            // stringa POSIX
 }
 
 export interface DeviceStatus {

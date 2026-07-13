@@ -4,11 +4,14 @@ import { BleService } from './ble.service';
 import {
   GeneralConfig, TimeWeatherConfig, NewsConfig, BrandConfig,
   QuoteQuizConfig, DisplayConfig, DeviceStatus, WifiConfig, MelodyRequest,
+  OqClockConfig, OqScrollConfig, OqDigitalConfig, OqTimeConfig,
 } from '../models/device-config.model';
 import {
   CHAR_GENERAL_UUID, CHAR_TIMEWEATHER_UUID, CHAR_NEWS_UUID,
   CHAR_BRAND_UUID, CHAR_QUOTEQUIZ_UUID, CHAR_DISPLAY_UUID,
-  CHAR_WIFI_UUID, CHAR_MELODY_UUID,
+  CHAR_WIFI_UUID, CHAR_MELODY_UUID, CHAR_STATUS_UUID,
+  CHAR_OQ_CLOCK_UUID, CHAR_OQ_SCROLL_UUID, CHAR_OQ_DIGITAL_UUID,
+  DEVICE_TYPE_ORAQUADRA,
 } from '../constants/ble-uuids';
 
 @Injectable({ providedIn: 'root' })
@@ -23,12 +26,52 @@ export class DeviceStoreService {
   readonly wifi$ = new BehaviorSubject<WifiConfig | null>(null);
   readonly status$ = new BehaviorSubject<DeviceStatus | null>(null);
 
+  // Configurazioni specifiche Oraquadra
+  readonly oqClock$ = new BehaviorSubject<OqClockConfig | null>(null);
+  readonly oqScroll$ = new BehaviorSubject<OqScrollConfig | null>(null);
+  readonly oqDigital$ = new BehaviorSubject<OqDigitalConfig | null>(null);
+  readonly oqTime$ = new BehaviorSubject<OqTimeConfig | null>(null);
+
   constructor(private ble: BleService) {
     // Subscribe to status notifications
     this.ble.deviceStatus$.subscribe(s => this.status$.next(s));
   }
 
+  // Tipo del dispositivo attualmente connesso ('oraquadra' per FreeClock Oraquadra)
+  get deviceType(): string {
+    return this.status$.value?.deviceType ?? '';
+  }
+
+  get isOraquadra(): boolean {
+    return this.deviceType === DEVICE_TYPE_ORAQUADRA;
+  }
+
   async loadAllFromDevice(): Promise<void> {
+    // Lo status (senza auth) identifica il tipo di dispositivo: da esso dipende
+    // quali characteristic esistono e quindi cosa leggere
+    const status = await this.ble.readCharacteristic<DeviceStatus>(CHAR_STATUS_UUID);
+    this.status$.next(status);
+
+    if (status.deviceType === DEVICE_TYPE_ORAQUADRA) {
+      const [quoteQuiz, wifi, oqClock, oqScroll, oqDigital, oqTime] =
+        await Promise.all([
+          this.ble.readCharacteristic<QuoteQuizConfig>(CHAR_QUOTEQUIZ_UUID),
+          this.ble.readCharacteristic<WifiConfig>(CHAR_WIFI_UUID),
+          this.ble.readCharacteristic<OqClockConfig>(CHAR_OQ_CLOCK_UUID),
+          this.ble.readCharacteristic<OqScrollConfig>(CHAR_OQ_SCROLL_UUID),
+          this.ble.readCharacteristic<OqDigitalConfig>(CHAR_OQ_DIGITAL_UUID),
+          this.ble.readCharacteristic<OqTimeConfig>(CHAR_TIMEWEATHER_UUID),
+        ]);
+
+      this.quoteQuiz$.next(quoteQuiz);
+      this.wifi$.next(wifi);
+      this.oqClock$.next(oqClock);
+      this.oqScroll$.next(oqScroll);
+      this.oqDigital$.next(oqDigital);
+      this.oqTime$.next(oqTime);
+      return;
+    }
+
     const [general, timeWeather, news, brand, quoteQuiz, display, wifi] =
       await Promise.all([
         this.ble.readCharacteristic<GeneralConfig>(CHAR_GENERAL_UUID),
@@ -139,6 +182,32 @@ export class DeviceStoreService {
     await this.ble.writeCharacteristic(CHAR_MELODY_UUID, req);
   }
 
+  // --- Oraquadra ---
+
+  async writeOqClock(config: OqClockConfig): Promise<void> {
+    await this.ble.ensureConnected();
+    await this.ble.writeCharacteristic(CHAR_OQ_CLOCK_UUID, config);
+    this.oqClock$.next(config);
+  }
+
+  async writeOqScroll(config: OqScrollConfig): Promise<void> {
+    await this.ble.ensureConnected();
+    await this.ble.writeCharacteristic(CHAR_OQ_SCROLL_UUID, config);
+    this.oqScroll$.next(config);
+  }
+
+  async writeOqDigital(config: OqDigitalConfig): Promise<void> {
+    await this.ble.ensureConnected();
+    await this.ble.writeCharacteristic(CHAR_OQ_DIGITAL_UUID, config);
+    this.oqDigital$.next(config);
+  }
+
+  async writeOqTime(config: OqTimeConfig): Promise<void> {
+    await this.ble.ensureConnected();
+    await this.ble.writeCharacteristic(CHAR_TIMEWEATHER_UUID, config);
+    this.oqTime$.next(config);
+  }
+
   clear(): void {
     this.general$.next(null);
     this.timeWeather$.next(null);
@@ -148,5 +217,9 @@ export class DeviceStoreService {
     this.display$.next(null);
     this.wifi$.next(null);
     this.status$.next(null);
+    this.oqClock$.next(null);
+    this.oqScroll$.next(null);
+    this.oqDigital$.next(null);
+    this.oqTime$.next(null);
   }
 }
