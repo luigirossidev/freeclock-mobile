@@ -77,21 +77,14 @@ export class JukeboxPage {
       this.melodies = FALLBACK_MELODIES;
     }
     this.selectedId = this.melodies[0].i;
-    this.message = this.melodies[0].n;
     this.loading = false;
   }
 
-  onMelodyChange() {
-    const melody = this.melodies.find(m => m.i === this.selectedId);
-    if (melody) this.message = melody.n;
-  }
-
   async play() {
-    if (!this.message?.trim()) return;
     const rep = Math.min(1000, Math.max(1, Math.round(this.repeatCount)));
     this.sending = true;
     try {
-      await this.store.writeMelody({ id: this.selectedId, msg: this.message.trim(), rep });
+      await this.store.writeMelody({ id: this.selectedId, msg: (this.message ?? '').trim(), rep });
       const toast = await this.toastCtrl.create({
         message: this.translate.instant('JUKEBOX.SENT'),
         duration: 1500,

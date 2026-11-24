@@ -154,7 +154,7 @@
     "TITLE": "Jukebox",
     "MELODY": "Melody",
     "MESSAGE": "Display text",
-    "MESSAGE_HINT": "Text that scrolls during the melody",
+    "MESSAGE_HINT": "Text that scrolls during the melody (optional)",
     "REPEAT": "Repeat count",
     "REPEAT_HINT": "From 1 to 1000",
     "PLAY": "Play on device",

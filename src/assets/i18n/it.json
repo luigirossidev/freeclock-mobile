@@ -154,7 +154,7 @@
     "TITLE": "Jukebox",
     "MELODY": "Melodia",
     "MESSAGE": "Testo sul display",
-    "MESSAGE_HINT": "Testo che scorre durante la melodia",
+    "MESSAGE_HINT": "Testo che scorre durante la melodia (opzionale)",
     "REPEAT": "Ripetizioni",
     "REPEAT_HINT": "Da 1 a 1000",
     "PLAY": "Ascolta sul dispositivo",
