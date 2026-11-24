@@ -18,7 +18,9 @@
   <img alt="Get it on Google Play" src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" height="50">
 </a>
 &nbsp;&nbsp;
-<img alt="Coming soon on the App Store" src="https://img.shields.io/badge/App_Store-Coming_Soon-999999?logo=apple&logoColor=white&style=for-the-badge" height="50">
+<a href="https://apps.apple.com/app/id6780427119">
+  <img alt="Download on the App Store" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" height="50">
+</a>
 
 <hr/>
 
